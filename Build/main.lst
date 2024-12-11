@@ -1,0 +1,676 @@
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.arch armv7e-m
+   3              		.fpu fpv5-d16
+   4              		.eabi_attribute 28, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 1
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"main.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "Core/Src/main.c"
+  19              		.section	.text.check_alternative,"ax",%progbits
+  20              		.align	1
+  21              		.global	check_alternative
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	check_alternative:
+  27              	.LFB141:
+   1:Core/Src/main.c **** #include <init.h>
+   2:Core/Src/main.c **** #include <stdint.h>
+   3:Core/Src/main.c **** 
+   4:Core/Src/main.c **** int button_state_1=0;
+   5:Core/Src/main.c **** int button_state_2=0;
+   6:Core/Src/main.c **** int button1_clicks=0;
+   7:Core/Src/main.c **** int button2_clicks=0;
+   8:Core/Src/main.c **** int alternative=0;
+   9:Core/Src/main.c **** int port_C0_state=0; // 0 - out;     1 - in
+  10:Core/Src/main.c **** 
+  11:Core/Src/main.c **** void check_alternative()
+  12:Core/Src/main.c **** {
+  28              		.loc 1 12 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  13:Core/Src/main.c ****         if(alternative==0 && button2_clicks%6==5){
+  33              		.loc 1 13 9 view .LVU1
+  34              		.loc 1 13 23 is_stmt 0 view .LVU2
+  35 0000 174B     		ldr	r3, .L6
+  36 0002 1B68     		ldr	r3, [r3]
+  37              		.loc 1 13 11 view .LVU3
+  38 0004 63B9     		cbnz	r3, .L2
+  39              		.loc 1 13 44 discriminator 1 view .LVU4
+  40 0006 174B     		ldr	r3, .L6+4
+  41 0008 1A68     		ldr	r2, [r3]
+  42 000a 174B     		ldr	r3, .L6+8
+  43 000c 83FB0213 		smull	r1, r3, r3, r2
+  44 0010 A3EBE273 		sub	r3, r3, r2, asr #31
+  45 0014 03EB4303 		add	r3, r3, r3, lsl #1
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 2
+
+
+  46 0018 5900     		lsls	r1, r3, #1
+  47 001a 531A     		subs	r3, r2, r1
+  48              		.loc 1 13 27 discriminator 1 view .LVU5
+  49 001c 052B     		cmp	r3, #5
+  50 001e 04D0     		beq	.L4
+  51              	.L2:
+  14:Core/Src/main.c ****                 alternative=1;
+  15:Core/Src/main.c ****                 button2_clicks=0;
+  16:Core/Src/main.c ****         }
+  17:Core/Src/main.c ****         if(alternative==1 && button2_clicks%6==5){
+  52              		.loc 1 17 9 is_stmt 1 view .LVU6
+  53              		.loc 1 17 23 is_stmt 0 view .LVU7
+  54 0020 0F4B     		ldr	r3, .L6
+  55 0022 1B68     		ldr	r3, [r3]
+  56              		.loc 1 17 11 view .LVU8
+  57 0024 012B     		cmp	r3, #1
+  58 0026 07D0     		beq	.L5
+  59              	.L1:
+  18:Core/Src/main.c ****                 alternative=0;
+  19:Core/Src/main.c ****                 button2_clicks=0;
+  20:Core/Src/main.c ****         }
+  21:Core/Src/main.c **** }
+  60              		.loc 1 21 1 view .LVU9
+  61 0028 7047     		bx	lr
+  62              	.L4:
+  14:Core/Src/main.c ****                 alternative=1;
+  63              		.loc 1 14 17 is_stmt 1 view .LVU10
+  14:Core/Src/main.c ****                 alternative=1;
+  64              		.loc 1 14 28 is_stmt 0 view .LVU11
+  65 002a 0D4B     		ldr	r3, .L6
+  66 002c 0122     		movs	r2, #1
+  67 002e 1A60     		str	r2, [r3]
+  15:Core/Src/main.c ****         }
+  68              		.loc 1 15 17 is_stmt 1 view .LVU12
+  15:Core/Src/main.c ****         }
+  69              		.loc 1 15 31 is_stmt 0 view .LVU13
+  70 0030 0C4B     		ldr	r3, .L6+4
+  71 0032 0022     		movs	r2, #0
+  72 0034 1A60     		str	r2, [r3]
+  73 0036 F3E7     		b	.L2
+  74              	.L5:
+  17:Core/Src/main.c ****                 alternative=0;
+  75              		.loc 1 17 44 discriminator 1 view .LVU14
+  76 0038 0A4B     		ldr	r3, .L6+4
+  77 003a 1A68     		ldr	r2, [r3]
+  78 003c 0A4B     		ldr	r3, .L6+8
+  79 003e 83FB0213 		smull	r1, r3, r3, r2
+  80 0042 A3EBE273 		sub	r3, r3, r2, asr #31
+  81 0046 03EB4303 		add	r3, r3, r3, lsl #1
+  82 004a 5900     		lsls	r1, r3, #1
+  83 004c 531A     		subs	r3, r2, r1
+  17:Core/Src/main.c ****                 alternative=0;
+  84              		.loc 1 17 27 discriminator 1 view .LVU15
+  85 004e 052B     		cmp	r3, #5
+  86 0050 EAD1     		bne	.L1
+  18:Core/Src/main.c ****                 alternative=0;
+  87              		.loc 1 18 17 is_stmt 1 view .LVU16
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 3
+
+
+  18:Core/Src/main.c ****                 alternative=0;
+  88              		.loc 1 18 28 is_stmt 0 view .LVU17
+  89 0052 0023     		movs	r3, #0
+  90 0054 024A     		ldr	r2, .L6
+  91 0056 1360     		str	r3, [r2]
+  19:Core/Src/main.c ****         }
+  92              		.loc 1 19 17 is_stmt 1 view .LVU18
+  19:Core/Src/main.c ****         }
+  93              		.loc 1 19 31 is_stmt 0 view .LVU19
+  94 0058 024A     		ldr	r2, .L6+4
+  95 005a 1360     		str	r3, [r2]
+  96              		.loc 1 21 1 view .LVU20
+  97 005c E4E7     		b	.L1
+  98              	.L7:
+  99 005e 00BF     		.align	2
+ 100              	.L6:
+ 101 0060 00000000 		.word	alternative
+ 102 0064 00000000 		.word	button2_clicks
+ 103 0068 ABAAAA2A 		.word	715827883
+ 104              		.cfi_endproc
+ 105              	.LFE141:
+ 107              		.section	.text.check_button_state_1,"ax",%progbits
+ 108              		.align	1
+ 109              		.global	check_button_state_1
+ 110              		.syntax unified
+ 111              		.thumb
+ 112              		.thumb_func
+ 114              	check_button_state_1:
+ 115              	.LFB142:
+  22:Core/Src/main.c **** void check_button_state_1()
+  23:Core/Src/main.c **** {
+ 116              		.loc 1 23 1 is_stmt 1 view -0
+ 117              		.cfi_startproc
+ 118              		@ args = 0, pretend = 0, frame = 0
+ 119              		@ frame_needed = 0, uses_anonymous_args = 0
+ 120              		@ link register save eliminated.
+  24:Core/Src/main.c ****         if(alternative==0 && button_state_1==0 && READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_0)!=0){
+ 121              		.loc 1 24 9 view .LVU22
+ 122              		.loc 1 24 23 is_stmt 0 view .LVU23
+ 123 0000 164B     		ldr	r3, .L16
+ 124 0002 1B68     		ldr	r3, [r3]
+ 125              		.loc 1 24 11 view .LVU24
+ 126 0004 9BB9     		cbnz	r3, .L9
+ 127              		.loc 1 24 44 discriminator 1 view .LVU25
+ 128 0006 164B     		ldr	r3, .L16+4
+ 129 0008 1B68     		ldr	r3, [r3]
+ 130              		.loc 1 24 27 discriminator 1 view .LVU26
+ 131 000a 83B9     		cbnz	r3, .L9
+ 132              		.loc 1 24 51 discriminator 2 view .LVU27
+ 133 000c 154A     		ldr	r2, .L16+8
+ 134 000e 1269     		ldr	r2, [r2, #16]
+ 135              		.loc 1 24 48 discriminator 2 view .LVU28
+ 136 0010 12F0010F 		tst	r2, #1
+ 137 0014 0BD0     		beq	.L9
+  25:Core/Src/main.c ****                 button_state_1=1;  
+ 138              		.loc 1 25 17 is_stmt 1 view .LVU29
+ 139              		.loc 1 25 31 is_stmt 0 view .LVU30
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 4
+
+
+ 140 0016 124A     		ldr	r2, .L16+4
+ 141 0018 0121     		movs	r1, #1
+ 142 001a 1160     		str	r1, [r2]
+  26:Core/Src/main.c ****                 button1_clicks+=1;
+ 143              		.loc 1 26 17 is_stmt 1 view .LVU31
+ 144              		.loc 1 26 31 is_stmt 0 view .LVU32
+ 145 001c 1249     		ldr	r1, .L16+12
+ 146 001e 0A68     		ldr	r2, [r1]
+ 147 0020 0132     		adds	r2, r2, #1
+ 148 0022 0A60     		str	r2, [r1]
+  27:Core/Src/main.c ****                 for(int i=0;i<750000;i++);
+ 149              		.loc 1 27 17 is_stmt 1 view .LVU33
+ 150              	.LBB2:
+ 151              		.loc 1 27 21 view .LVU34
+ 152              	.LVL0:
+ 153              		.loc 1 27 17 is_stmt 0 view .LVU35
+ 154 0024 00E0     		b	.L10
+ 155              	.LVL1:
+ 156              	.L11:
+ 157              		.loc 1 27 39 is_stmt 1 discriminator 3 view .LVU36
+ 158 0026 0133     		adds	r3, r3, #1
+ 159              	.LVL2:
+ 160              	.L10:
+ 161              		.loc 1 27 30 discriminator 1 view .LVU37
+ 162 0028 104A     		ldr	r2, .L16+16
+ 163 002a 9342     		cmp	r3, r2
+ 164 002c FBDD     		ble	.L11
+ 165              	.LVL3:
+ 166              	.L9:
+ 167              		.loc 1 27 30 is_stmt 0 discriminator 1 view .LVU38
+ 168              	.LBE2:
+  28:Core/Src/main.c ****         }
+  29:Core/Src/main.c ****         if(button_state_1==1 && READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_0)!=0){
+ 169              		.loc 1 29 9 is_stmt 1 view .LVU39
+ 170              		.loc 1 29 26 is_stmt 0 view .LVU40
+ 171 002e 0C4B     		ldr	r3, .L16+4
+ 172 0030 1B68     		ldr	r3, [r3]
+ 173              		.loc 1 29 11 view .LVU41
+ 174 0032 012B     		cmp	r3, #1
+ 175 0034 00D0     		beq	.L15
+ 176              	.L8:
+  30:Core/Src/main.c ****                 button_state_1=0;  
+  31:Core/Src/main.c ****                 button1_clicks+=1;
+  32:Core/Src/main.c ****                 for(int i=0;i<750000;i++);
+  33:Core/Src/main.c ****         }
+  34:Core/Src/main.c **** }
+ 177              		.loc 1 34 1 view .LVU42
+ 178 0036 7047     		bx	lr
+ 179              	.L15:
+  29:Core/Src/main.c ****                 button_state_1=0;  
+ 180              		.loc 1 29 33 discriminator 1 view .LVU43
+ 181 0038 0A4B     		ldr	r3, .L16+8
+ 182 003a 1B69     		ldr	r3, [r3, #16]
+  29:Core/Src/main.c ****                 button_state_1=0;  
+ 183              		.loc 1 29 30 discriminator 1 view .LVU44
+ 184 003c 13F0010F 		tst	r3, #1
+ 185 0040 F9D0     		beq	.L8
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 5
+
+
+  30:Core/Src/main.c ****                 button_state_1=0;  
+ 186              		.loc 1 30 17 is_stmt 1 view .LVU45
+  30:Core/Src/main.c ****                 button_state_1=0;  
+ 187              		.loc 1 30 31 is_stmt 0 view .LVU46
+ 188 0042 0023     		movs	r3, #0
+ 189 0044 064A     		ldr	r2, .L16+4
+ 190 0046 1360     		str	r3, [r2]
+  31:Core/Src/main.c ****                 for(int i=0;i<750000;i++);
+ 191              		.loc 1 31 17 is_stmt 1 view .LVU47
+  31:Core/Src/main.c ****                 for(int i=0;i<750000;i++);
+ 192              		.loc 1 31 31 is_stmt 0 view .LVU48
+ 193 0048 0749     		ldr	r1, .L16+12
+ 194 004a 0A68     		ldr	r2, [r1]
+ 195 004c 0132     		adds	r2, r2, #1
+ 196 004e 0A60     		str	r2, [r1]
+  32:Core/Src/main.c ****         }
+ 197              		.loc 1 32 17 is_stmt 1 view .LVU49
+ 198              	.LBB3:
+  32:Core/Src/main.c ****         }
+ 199              		.loc 1 32 21 view .LVU50
+ 200              	.LVL4:
+  32:Core/Src/main.c ****         }
+ 201              		.loc 1 32 17 is_stmt 0 view .LVU51
+ 202 0050 00E0     		b	.L13
+ 203              	.LVL5:
+ 204              	.L14:
+  32:Core/Src/main.c ****         }
+ 205              		.loc 1 32 39 is_stmt 1 discriminator 3 view .LVU52
+ 206 0052 0133     		adds	r3, r3, #1
+ 207              	.LVL6:
+ 208              	.L13:
+  32:Core/Src/main.c ****         }
+ 209              		.loc 1 32 30 discriminator 1 view .LVU53
+ 210 0054 054A     		ldr	r2, .L16+16
+ 211 0056 9342     		cmp	r3, r2
+ 212 0058 FBDD     		ble	.L14
+ 213 005a ECE7     		b	.L8
+ 214              	.L17:
+ 215              		.align	2
+ 216              	.L16:
+ 217 005c 00000000 		.word	alternative
+ 218 0060 00000000 		.word	button_state_1
+ 219 0064 00080240 		.word	1073874944
+ 220 0068 00000000 		.word	button1_clicks
+ 221 006c AF710B00 		.word	749999
+ 222              	.LBE3:
+ 223              		.cfi_endproc
+ 224              	.LFE142:
+ 226              		.section	.text.check_button_state_2,"ax",%progbits
+ 227              		.align	1
+ 228              		.global	check_button_state_2
+ 229              		.syntax unified
+ 230              		.thumb
+ 231              		.thumb_func
+ 233              	check_button_state_2:
+ 234              	.LFB143:
+  35:Core/Src/main.c **** void check_button_state_2()
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 6
+
+
+  36:Core/Src/main.c **** {
+ 235              		.loc 1 36 1 view -0
+ 236              		.cfi_startproc
+ 237              		@ args = 0, pretend = 0, frame = 0
+ 238              		@ frame_needed = 0, uses_anonymous_args = 0
+ 239              		@ link register save eliminated.
+  37:Core/Src/main.c ****         if(button_state_2==0 && READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_13)!=0){
+ 240              		.loc 1 37 9 view .LVU55
+ 241              		.loc 1 37 26 is_stmt 0 view .LVU56
+ 242 0000 154B     		ldr	r3, .L26
+ 243 0002 1B68     		ldr	r3, [r3]
+ 244              		.loc 1 37 11 view .LVU57
+ 245 0004 83B9     		cbnz	r3, .L19
+ 246              		.loc 1 37 33 discriminator 1 view .LVU58
+ 247 0006 154A     		ldr	r2, .L26+4
+ 248 0008 1269     		ldr	r2, [r2, #16]
+ 249              		.loc 1 37 30 discriminator 1 view .LVU59
+ 250 000a 12F4005F 		tst	r2, #8192
+ 251 000e 0BD0     		beq	.L19
+  38:Core/Src/main.c ****                 button_state_2=1;  
+ 252              		.loc 1 38 17 is_stmt 1 view .LVU60
+ 253              		.loc 1 38 31 is_stmt 0 view .LVU61
+ 254 0010 114A     		ldr	r2, .L26
+ 255 0012 0121     		movs	r1, #1
+ 256 0014 1160     		str	r1, [r2]
+  39:Core/Src/main.c ****                 button2_clicks+=1;
+ 257              		.loc 1 39 17 is_stmt 1 view .LVU62
+ 258              		.loc 1 39 31 is_stmt 0 view .LVU63
+ 259 0016 1249     		ldr	r1, .L26+8
+ 260 0018 0A68     		ldr	r2, [r1]
+ 261 001a 0132     		adds	r2, r2, #1
+ 262 001c 0A60     		str	r2, [r1]
+  40:Core/Src/main.c ****                 for(int i=0;i<750000;i++);
+ 263              		.loc 1 40 17 is_stmt 1 view .LVU64
+ 264              	.LBB4:
+ 265              		.loc 1 40 21 view .LVU65
+ 266              	.LVL7:
+ 267              		.loc 1 40 17 is_stmt 0 view .LVU66
+ 268 001e 00E0     		b	.L20
+ 269              	.LVL8:
+ 270              	.L21:
+ 271              		.loc 1 40 39 is_stmt 1 discriminator 3 view .LVU67
+ 272 0020 0133     		adds	r3, r3, #1
+ 273              	.LVL9:
+ 274              	.L20:
+ 275              		.loc 1 40 30 discriminator 1 view .LVU68
+ 276 0022 104A     		ldr	r2, .L26+12
+ 277 0024 9342     		cmp	r3, r2
+ 278 0026 FBDD     		ble	.L21
+ 279              	.LVL10:
+ 280              	.L19:
+ 281              		.loc 1 40 30 is_stmt 0 discriminator 1 view .LVU69
+ 282              	.LBE4:
+  41:Core/Src/main.c ****         }
+  42:Core/Src/main.c ****         if(button_state_2==1 && READ_BIT(GPIOC->IDR, GPIO_IDR_IDR_13)!=0){
+ 283              		.loc 1 42 9 is_stmt 1 view .LVU70
+ 284              		.loc 1 42 26 is_stmt 0 view .LVU71
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 7
+
+
+ 285 0028 0B4B     		ldr	r3, .L26
+ 286 002a 1B68     		ldr	r3, [r3]
+ 287              		.loc 1 42 11 view .LVU72
+ 288 002c 012B     		cmp	r3, #1
+ 289 002e 00D0     		beq	.L25
+ 290              	.L18:
+  43:Core/Src/main.c ****                 button_state_2=0;  
+  44:Core/Src/main.c ****                 button2_clicks+=1;
+  45:Core/Src/main.c ****                 for(int i=0;i<750000;i++);
+  46:Core/Src/main.c ****         }
+  47:Core/Src/main.c **** }
+ 291              		.loc 1 47 1 view .LVU73
+ 292 0030 7047     		bx	lr
+ 293              	.L25:
+  42:Core/Src/main.c ****                 button_state_2=0;  
+ 294              		.loc 1 42 33 discriminator 1 view .LVU74
+ 295 0032 0A4B     		ldr	r3, .L26+4
+ 296 0034 1B69     		ldr	r3, [r3, #16]
+  42:Core/Src/main.c ****                 button_state_2=0;  
+ 297              		.loc 1 42 30 discriminator 1 view .LVU75
+ 298 0036 13F4005F 		tst	r3, #8192
+ 299 003a F9D0     		beq	.L18
+  43:Core/Src/main.c ****                 button_state_2=0;  
+ 300              		.loc 1 43 17 is_stmt 1 view .LVU76
+  43:Core/Src/main.c ****                 button_state_2=0;  
+ 301              		.loc 1 43 31 is_stmt 0 view .LVU77
+ 302 003c 0023     		movs	r3, #0
+ 303 003e 064A     		ldr	r2, .L26
+ 304 0040 1360     		str	r3, [r2]
+  44:Core/Src/main.c ****                 for(int i=0;i<750000;i++);
+ 305              		.loc 1 44 17 is_stmt 1 view .LVU78
+  44:Core/Src/main.c ****                 for(int i=0;i<750000;i++);
+ 306              		.loc 1 44 31 is_stmt 0 view .LVU79
+ 307 0042 0749     		ldr	r1, .L26+8
+ 308 0044 0A68     		ldr	r2, [r1]
+ 309 0046 0132     		adds	r2, r2, #1
+ 310 0048 0A60     		str	r2, [r1]
+  45:Core/Src/main.c ****         }
+ 311              		.loc 1 45 17 is_stmt 1 view .LVU80
+ 312              	.LBB5:
+  45:Core/Src/main.c ****         }
+ 313              		.loc 1 45 21 view .LVU81
+ 314              	.LVL11:
+  45:Core/Src/main.c ****         }
+ 315              		.loc 1 45 17 is_stmt 0 view .LVU82
+ 316 004a 00E0     		b	.L23
+ 317              	.LVL12:
+ 318              	.L24:
+  45:Core/Src/main.c ****         }
+ 319              		.loc 1 45 39 is_stmt 1 discriminator 3 view .LVU83
+ 320 004c 0133     		adds	r3, r3, #1
+ 321              	.LVL13:
+ 322              	.L23:
+  45:Core/Src/main.c ****         }
+ 323              		.loc 1 45 30 discriminator 1 view .LVU84
+ 324 004e 054A     		ldr	r2, .L26+12
+ 325 0050 9342     		cmp	r3, r2
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 8
+
+
+ 326 0052 FBDD     		ble	.L24
+ 327 0054 ECE7     		b	.L18
+ 328              	.L27:
+ 329 0056 00BF     		.align	2
+ 330              	.L26:
+ 331 0058 00000000 		.word	button_state_2
+ 332 005c 00080240 		.word	1073874944
+ 333 0060 00000000 		.word	button2_clicks
+ 334 0064 AF710B00 		.word	749999
+ 335              	.LBE5:
+ 336              		.cfi_endproc
+ 337              	.LFE143:
+ 339              		.section	.text.reconfigure_pin_C0_to_in,"ax",%progbits
+ 340              		.align	1
+ 341              		.global	reconfigure_pin_C0_to_in
+ 342              		.syntax unified
+ 343              		.thumb
+ 344              		.thumb_func
+ 346              	reconfigure_pin_C0_to_in:
+ 347              	.LFB144:
+  48:Core/Src/main.c **** void reconfigure_pin_C0_to_in(){
+ 348              		.loc 1 48 32 view -0
+ 349              		.cfi_startproc
+ 350              		@ args = 0, pretend = 0, frame = 0
+ 351              		@ frame_needed = 0, uses_anonymous_args = 0
+ 352              		@ link register save eliminated.
+  49:Core/Src/main.c ****         CLEAR_BIT(GPIOC->MODER, GPIO_MODER_MODER0_0);
+ 353              		.loc 1 49 9 view .LVU86
+ 354 0000 084B     		ldr	r3, .L29
+ 355 0002 1A68     		ldr	r2, [r3]
+ 356 0004 22F00102 		bic	r2, r2, #1
+ 357 0008 1A60     		str	r2, [r3]
+  50:Core/Src/main.c ****         CLEAR_BIT(GPIOC->OTYPER, GPIO_OTYPER_OT_0);
+ 358              		.loc 1 50 9 view .LVU87
+ 359 000a 5A68     		ldr	r2, [r3, #4]
+ 360 000c 22F00102 		bic	r2, r2, #1
+ 361 0010 5A60     		str	r2, [r3, #4]
+  51:Core/Src/main.c ****         CLEAR_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDER_OSPEEDR0_0);
+ 362              		.loc 1 51 9 view .LVU88
+ 363 0012 9A68     		ldr	r2, [r3, #8]
+ 364 0014 22F00102 		bic	r2, r2, #1
+ 365 0018 9A60     		str	r2, [r3, #8]
+  52:Core/Src/main.c ****         CLEAR_BIT(GPIOC->PUPDR, GPIO_PUPDR_PUPDR0_0);
+ 366              		.loc 1 52 9 view .LVU89
+ 367 001a DA68     		ldr	r2, [r3, #12]
+ 368 001c 22F00102 		bic	r2, r2, #1
+ 369 0020 DA60     		str	r2, [r3, #12]
+  53:Core/Src/main.c **** }
+ 370              		.loc 1 53 1 is_stmt 0 view .LVU90
+ 371 0022 7047     		bx	lr
+ 372              	.L30:
+ 373              		.align	2
+ 374              	.L29:
+ 375 0024 00080240 		.word	1073874944
+ 376              		.cfi_endproc
+ 377              	.LFE144:
+ 379              		.section	.text.reconfigure_pin_C0_to_out,"ax",%progbits
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 9
+
+
+ 380              		.align	1
+ 381              		.global	reconfigure_pin_C0_to_out
+ 382              		.syntax unified
+ 383              		.thumb
+ 384              		.thumb_func
+ 386              	reconfigure_pin_C0_to_out:
+ 387              	.LFB145:
+  54:Core/Src/main.c **** void reconfigure_pin_C0_to_out(){
+ 388              		.loc 1 54 33 is_stmt 1 view -0
+ 389              		.cfi_startproc
+ 390              		@ args = 0, pretend = 0, frame = 0
+ 391              		@ frame_needed = 0, uses_anonymous_args = 0
+ 392              		@ link register save eliminated.
+  55:Core/Src/main.c ****         SET_BIT(GPIOC->MODER, GPIO_MODER_MODER0_0);
+ 393              		.loc 1 55 9 view .LVU92
+ 394 0000 084B     		ldr	r3, .L32
+ 395 0002 1A68     		ldr	r2, [r3]
+ 396 0004 42F00102 		orr	r2, r2, #1
+ 397 0008 1A60     		str	r2, [r3]
+  56:Core/Src/main.c ****         CLEAR_BIT(GPIOC->OTYPER, GPIO_OTYPER_OT_0);
+ 398              		.loc 1 56 9 view .LVU93
+ 399 000a 5A68     		ldr	r2, [r3, #4]
+ 400 000c 22F00102 		bic	r2, r2, #1
+ 401 0010 5A60     		str	r2, [r3, #4]
+  57:Core/Src/main.c ****         SET_BIT(GPIOC->OSPEEDR, GPIO_OSPEEDER_OSPEEDR0_0);
+ 402              		.loc 1 57 9 view .LVU94
+ 403 0012 9A68     		ldr	r2, [r3, #8]
+ 404 0014 42F00102 		orr	r2, r2, #1
+ 405 0018 9A60     		str	r2, [r3, #8]
+  58:Core/Src/main.c ****         CLEAR_BIT(GPIOC->PUPDR, GPIO_PUPDR_PUPDR0_0);
+ 406              		.loc 1 58 9 view .LVU95
+ 407 001a DA68     		ldr	r2, [r3, #12]
+ 408 001c 22F00102 		bic	r2, r2, #1
+ 409 0020 DA60     		str	r2, [r3, #12]
+  59:Core/Src/main.c **** }
+ 410              		.loc 1 59 1 is_stmt 0 view .LVU96
+ 411 0022 7047     		bx	lr
+ 412              	.L33:
+ 413              		.align	2
+ 414              	.L32:
+ 415 0024 00080240 		.word	1073874944
+ 416              		.cfi_endproc
+ 417              	.LFE145:
+ 419              		.section	.text.main,"ax",%progbits
+ 420              		.align	1
+ 421              		.global	main
+ 422              		.syntax unified
+ 423              		.thumb
+ 424              		.thumb_func
+ 426              	main:
+ 427              	.LFB146:
+  60:Core/Src/main.c **** float a = 1;
+  61:Core/Src/main.c **** int main(void)
+  62:Core/Src/main.c **** {
+ 428              		.loc 1 62 1 is_stmt 1 view -0
+ 429              		.cfi_startproc
+ 430              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 10
+
+
+ 431              		@ frame_needed = 0, uses_anonymous_args = 0
+ 432              		@ link register save eliminated.
+  63:Core/Src/main.c ****         // GPIO_Ini();
+  64:Core/Src/main.c ****         // GPIO_Ini_Self_Def();
+  65:Core/Src/main.c ****         // GPIO_Ini_CMSIS();
+  66:Core/Src/main.c ****         // while(1){
+  67:Core/Src/main.c ****         //         check_alternative();
+  68:Core/Src/main.c ****         //         if(alternative==0){
+  69:Core/Src/main.c ****         //                 if(port_C0_state==0){
+  70:Core/Src/main.c ****         //                         reconfigure_pin_C0_to_in();
+  71:Core/Src/main.c ****         //                         port_C0_state=1;
+  72:Core/Src/main.c ****         //                 }
+  73:Core/Src/main.c ****         //                 check_button_state_1();
+  74:Core/Src/main.c ****         //                 check_button_state_2();
+  75:Core/Src/main.c ****         //                 if(button1_clicks%4==1)SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS0);
+  76:Core/Src/main.c ****         //                 if(button1_clicks%4==2)SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS7);
+  77:Core/Src/main.c ****         //                 if(button1_clicks%4==3)SET_BIT(GPIOB->BSRR, GPIO_BSRR_BS14);
+  78:Core/Src/main.c ****         //                 if(button1_clicks%4==0){
+  79:Core/Src/main.c ****         //                         SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR0);
+  80:Core/Src/main.c ****         //                         SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR7);
+  81:Core/Src/main.c ****         //                         SET_BIT(GPIOB->BSRR, GPIO_BSRR_BR14);
+  82:Core/Src/main.c ****         //                 }
+  83:Core/Src/main.c ****         //         }
+  84:Core/Src/main.c ****         //         if(alternative==1){
+  85:Core/Src/main.c ****         //                 if(port_C0_state==1){
+  86:Core/Src/main.c ****         //                         reconfigure_pin_C0_to_out();
+  87:Core/Src/main.c ****         //                         port_C0_state=0;
+  88:Core/Src/main.c ****         //                 }
+  89:Core/Src/main.c ****         //                 check_button_state_2();
+  90:Core/Src/main.c ****         //                 if(button2_clicks%2==1)SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS0);
+  91:Core/Src/main.c ****         //                 if(button2_clicks%2==0)SET_BIT(GPIOC->BSRR, GPIO_BSRR_BR0);
+  92:Core/Src/main.c **** 
+  93:Core/Src/main.c ****         //         }
+  94:Core/Src/main.c ****         // }
+  95:Core/Src/main.c ****         a = 0.11+22.1;
+ 433              		.loc 1 95 9 view .LVU98
+ 434              		.loc 1 95 11 is_stmt 0 view .LVU99
+ 435 0000 024B     		ldr	r3, .L35
+ 436 0002 034A     		ldr	r2, .L35+4
+ 437 0004 1A60     		str	r2, [r3]	@ float
+  96:Core/Src/main.c **** }...
+ 438              		.loc 1 96 1 view .LVU100
+ 439 0006 0020     		movs	r0, #0
+ 440 0008 7047     		bx	lr
+ 441              	.L36:
+ 442 000a 00BF     		.align	2
+ 443              	.L35:
+ 444 000c 00000000 		.word	a
+ 445 0010 14AEB141 		.word	1102163476
+ 446              		.cfi_endproc
+ 447              	.LFE146:
+ 449              		.global	a
+ 450              		.section	.data.a,"aw"
+ 451              		.align	2
+ 454              	a:
+ 455 0000 0000803F 		.word	1065353216
+ 456              		.global	port_C0_state
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 11
+
+
+ 457              		.section	.bss.port_C0_state,"aw",%nobits
+ 458              		.align	2
+ 461              	port_C0_state:
+ 462 0000 00000000 		.space	4
+ 463              		.global	alternative
+ 464              		.section	.bss.alternative,"aw",%nobits
+ 465              		.align	2
+ 468              	alternative:
+ 469 0000 00000000 		.space	4
+ 470              		.global	button2_clicks
+ 471              		.section	.bss.button2_clicks,"aw",%nobits
+ 472              		.align	2
+ 475              	button2_clicks:
+ 476 0000 00000000 		.space	4
+ 477              		.global	button1_clicks
+ 478              		.section	.bss.button1_clicks,"aw",%nobits
+ 479              		.align	2
+ 482              	button1_clicks:
+ 483 0000 00000000 		.space	4
+ 484              		.global	button_state_2
+ 485              		.section	.bss.button_state_2,"aw",%nobits
+ 486              		.align	2
+ 489              	button_state_2:
+ 490 0000 00000000 		.space	4
+ 491              		.global	button_state_1
+ 492              		.section	.bss.button_state_1,"aw",%nobits
+ 493              		.align	2
+ 496              	button_state_1:
+ 497 0000 00000000 		.space	4
+ 498              		.text
+ 499              	.Letext0:
+ 500              		.file 2 "C:/SysGCC/arm-eabi/arm-none-eabi/include/machine/_default_types.h"
+ 501              		.file 3 "C:/SysGCC/arm-eabi/arm-none-eabi/include/sys/_stdint.h"
+ 502              		.file 4 "C:\\Users\\mns94\\OneDrive\\tpu\\dmt\\test\\CMSIS\\Devices\\stm32f767xx.h"
+ARM GAS  C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:20     .text.check_alternative:00000000 $t
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:26     .text.check_alternative:00000000 check_alternative
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:101    .text.check_alternative:00000060 $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:468    .bss.alternative:00000000 alternative
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:475    .bss.button2_clicks:00000000 button2_clicks
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:108    .text.check_button_state_1:00000000 $t
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:114    .text.check_button_state_1:00000000 check_button_state_1
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:217    .text.check_button_state_1:0000005c $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:496    .bss.button_state_1:00000000 button_state_1
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:482    .bss.button1_clicks:00000000 button1_clicks
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:227    .text.check_button_state_2:00000000 $t
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:233    .text.check_button_state_2:00000000 check_button_state_2
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:331    .text.check_button_state_2:00000058 $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:489    .bss.button_state_2:00000000 button_state_2
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:340    .text.reconfigure_pin_C0_to_in:00000000 $t
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:346    .text.reconfigure_pin_C0_to_in:00000000 reconfigure_pin_C0_to_in
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:375    .text.reconfigure_pin_C0_to_in:00000024 $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:380    .text.reconfigure_pin_C0_to_out:00000000 $t
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:386    .text.reconfigure_pin_C0_to_out:00000000 reconfigure_pin_C0_to_out
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:415    .text.reconfigure_pin_C0_to_out:00000024 $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:420    .text.main:00000000 $t
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:426    .text.main:00000000 main
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:444    .text.main:0000000c $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:454    .data.a:00000000 a
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:451    .data.a:00000000 $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:461    .bss.port_C0_state:00000000 port_C0_state
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:458    .bss.port_C0_state:00000000 $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:465    .bss.alternative:00000000 $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:472    .bss.button2_clicks:00000000 $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:479    .bss.button1_clicks:00000000 $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:486    .bss.button_state_2:00000000 $d
+C:\Users\mns94\AppData\Local\Temp\ccgFQH5D.s:493    .bss.button_state_1:00000000 $d
+
+NO UNDEFINED SYMBOLS
